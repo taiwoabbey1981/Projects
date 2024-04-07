@@ -1,0 +1,38 @@
+╔═════════════════╤═════════════════════════════════════╗
+║     Target      │        http://localhost:9393        ║
+╟─────────────────┼─────────────────────────────────────╢
+║                 │        Analytics Enabled: true      ║
+║                 │Monitoring Dashboard Type: NONE      ║
+║    Features     │        Schedules Enabled: false     ║
+║                 │          Streams Enabled: true      ║
+║                 │            Tasks Enabled: false     ║
+╟─────────────────┼─────────────────────────────────────╢
+║    Versions     │Foo Core: 1.2.3.BUILD-SNAPSHOT       ║
+╟─────────────────┼─────────────────────────────────────╢
+║    Security     │         Authenticated: false        ║
+║                 │Authentication Enabled: true         ║
+╟─────────────────┼─────────────────────────────────────╢
+║                 │Deployer Implementation Version: null║
+║                 │                  Deployer Name: null║
+║                 │           Deployer Spi Version: null║
+║                 │                   Java Version: 1.8 ║
+║Skipper Deployer │           Platform Api Version: null║
+║                 │        Platform Client Version: null║
+║                 │          Platform Host Version: null║
+║                 │                  Platform Type: null║
+║                 │            Spring Boot Version: null║
+║                 │                 Spring Version: null║
+╟┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┼┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈╢
+║Platform Specific│Some: Stuff                          ║
+╟─────────────────┼─────────────────────────────────────╢
+║                 │Deployer Implementation Version: null║
+║                 │                  Deployer Name: null║
+║                 │           Deployer Spi Version: 6.4 ║
+║                 │                   Java Version: null║
+║  Task Launcher  │           Platform Api Version: null║
+║                 │        Platform Client Version: null║
+║                 │          Platform Host Version: null║
+║                 │                  Platform Type: null║
+║                 │            Spring Boot Version: null║
+║                 │                 Spring Version: null║
+╚═════════════════╧═════════════════════════════════════╝

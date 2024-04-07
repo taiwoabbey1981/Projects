@@ -1,0 +1,20 @@
+(@ load("@ytt:data", "data") @)#@data/values
+---
+scdf:
+  server:
+    image:
+      repository: (@= data.values.server.repository @)
+      tag: (@= data.values.server.version @)
+  ctr:
+    image:
+      tag: (@= data.values.ctr.version @)
+  skipper:
+    image:
+      tag: (@= data.values.skipper.version @)
+  feature:
+    monitoring:
+      grafana:
+        enabled: true
+      prometheusRsocketProxy:
+        enabled: true
+

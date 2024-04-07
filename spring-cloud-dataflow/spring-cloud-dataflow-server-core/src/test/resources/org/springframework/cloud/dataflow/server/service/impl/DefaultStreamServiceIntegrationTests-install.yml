@@ -1,0 +1,27 @@
+"metadata":
+  "name": "log"
+"spec":
+  "resource": "maven://org.springframework.cloud.stream.app:log-sink-rabbit:jar"
+  "applicationProperties":
+    "management.endpoints.web.exposure.include": "health,info,bindings"
+    "spring.cloud.dataflow.stream.app.label": "log"
+    "spring.cloud.dataflow.stream.name": "ticktock"
+    "spring.cloud.dataflow.stream.app.type": "sink"
+
+    "spring.cloud.stream.bindings.input.group": "ticktock"
+    "spring.cloud.stream.bindings.input.destination": "ticktock.time"
+
+    "management.metrics.tags.stream.name": ${spring.cloud.dataflow.stream.name:unknown}
+    "management.metrics.tags.application.name": ${vcap.application.application_name:${spring.cloud.dataflow.stream.app.label:unknown}}
+    "management.metrics.tags.application.type": ${spring.cloud.dataflow.stream.app.type:unknown}
+    "management.metrics.tags.application.guid": ${spring.cloud.application.guid:unknown}
+    "management.metrics.tags.instance.index": ${vcap.application.instance_index:${spring.cloud.stream.instanceIndex:0}}
+
+    "management.metrics.tags.application": ${spring.cloud.dataflow.stream.name:unknown}-${spring.cloud.dataflow.stream.app.label:unknown}-${spring.cloud.dataflow.stream.app.type:unknown}
+
+    "wavefront.application.name": ${spring.cloud.dataflow.stream.name:unknown}
+    "wavefront.application.service": ${spring.cloud.dataflow.stream.app.label:unknown}-${spring.cloud.dataflow.stream.app.type:unknown}-${vcap.application.instance_index:${spring.cloud.stream.instanceIndex:0}}
+  "version": "1.2.0.RELEASE"
+  "deploymentProperties":
+    "spring.cloud.deployer.bootVersion": "2"
+    "spring.cloud.deployer.group": "ticktock"

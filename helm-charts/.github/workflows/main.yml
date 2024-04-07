@@ -1,0 +1,64 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Release Charts
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - '.github/**'
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.13.1
+
+      - name: Add Helm repos
+        run: |
+          helm repo add mongodb https://mongodb.github.io/helm-charts
+
+      - name: Allow script
+        run: |
+          chmod +x ./.github/actions/releaser/cr.sh
+
+      - name: Helm Chart Dependency Releaser
+        uses: ./.github/actions/releaser
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          charts_repo_url: https://mongodb.github.io/helm-charts
+          target: |
+            atlas-operator-crds
+            community-operator-crds
+
+      - name: Get latest charts from repo
+        run: |
+          helm repo update
+
+      - name: Helm Chart Releaser
+        uses: ./.github/actions/releaser
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        with:
+          charts_repo_url: https://mongodb.github.io/helm-charts

@@ -1,0 +1,21 @@
+[[preface]]
+= Preface
+
+[[dataflow-documentation-about]]
+== About the documentation
+Copies of this document may be made for your own use and for
+distribution to others, provided that you do not charge any fee for such copies and
+further provided that each copy contains this Copyright Notice, whether distributed in
+print or electronically.
+
+[[dataflow-documentation-getting-help]]
+== Getting help
+Having trouble with Spring Cloud Data Flow? We would like to help!
+
+* Ask a question. We monitor https://stackoverflow.com[stackoverflow.com] for questions
+tagged with https://stackoverflow.com/tags/spring-cloud-dataflow[`spring-cloud-dataflow`].
+* Report bugs with Spring Cloud Data Flow at https://github.com/{github-repo}/issues.
+* Review the latest release notes at https://github.com/{github-repo}/releases.
+
+NOTE: All of Spring Cloud Data Flow is open source, including the documentation! If you find problems
+with the docs or if you just want to improve them, please {github-code}[get involved].

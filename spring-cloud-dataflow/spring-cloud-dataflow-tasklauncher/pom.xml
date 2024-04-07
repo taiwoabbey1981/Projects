@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-dataflow-parent</artifactId>
+		<version>2.11.2-SNAPSHOT</version>
+		<relativePath>../spring-cloud-dataflow-parent</relativePath>
+	</parent>
+
+	<artifactId>spring-cloud-dataflow-tasklauncher</artifactId>
+	<name>spring-cloud-dataflow-tasklauncher</name>
+	<description>Data Flow Tasklauncher</description>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>spring-cloud-dataflow-tasklauncher-function</module>
+		<module>spring-cloud-dataflow-tasklauncher-sink</module>
+		<module>spring-cloud-dataflow-tasklauncher-sink-kafka</module>
+		<module>spring-cloud-dataflow-tasklauncher-sink-rabbit</module>
+		<module>spring-cloud-dataflow-tasklauncher-sink-dependencies</module>
+	</modules>
+</project>

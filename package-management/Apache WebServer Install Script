@@ -1,0 +1,15 @@
+#nginx  
+#Apache http  
+#Ticket0014: Write a script to deploy apache webServer  
+#[root@tomcat ~]# cat apache.sh
+#!/bin/sh
+# install apache as the admin/root user
+sudo yum install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+echo Devops is good > /var/www/html/index.html
+echo "<h1> and easy with Landmark </h1>"   >> /var/www/html/index.html
+mkdir /var/www/html/google
+echo "<h1> Landmark Google </h1>"   >> /var/www/html/google/index.html
+ps -ef | grep httpd
+systemctl status httpd

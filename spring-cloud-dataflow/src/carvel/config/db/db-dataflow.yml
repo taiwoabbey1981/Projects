@@ -1,0 +1,13 @@
+#! Conditionally create configs for dataflow db by choosing different db types
+#@ load("@ytt:data", "data")
+#@ load("@ytt:library", "library")
+#@ load("@ytt:overlay", "overlay")
+#@ load("@ytt:template", "template")
+#@ load("db.lib.yml", "db_overlay")
+#@ def db_external_values():
+name: db-dataflow
+username: #@ data.values.scdf.server.database.username
+password: #@ data.values.scdf.server.database.password
+#@ end
+--- #@ template.replace(overlay.apply(library.get("external").with_data_values(db_external_values()).eval(), db_overlay()))
+

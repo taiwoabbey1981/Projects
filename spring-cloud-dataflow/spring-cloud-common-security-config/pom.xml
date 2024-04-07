@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>spring-cloud-common-security-config</artifactId>
+	<version>2.11.2-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>spring-cloud-common-security-config</name>
+	<description>Spring Cloud Common Security Config</description>
+
+	<parent>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-dataflow-build</artifactId>
+		<version>2.11.2-SNAPSHOT</version>
+		<relativePath>../spring-cloud-dataflow-build</relativePath>
+	</parent>
+
+	<modules>
+		<module>spring-cloud-common-security-config-core</module>
+		<module>spring-cloud-common-security-config-web</module>
+		<module>spring-cloud-starter-common-security-config-web</module>
+	</modules>
+
+</project>

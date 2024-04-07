@@ -1,0 +1,1 @@
+app register --type task --force --name timestamp --uri maven://org.springframework.cloud.task.app:task-timestamp:3.2.0

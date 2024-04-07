@@ -1,0 +1,15 @@
+#@ load("@ytt:library", "library")
+#@ load("db.star", "db_external_dataflow")
+#@ load("db.star", "db_external_skipper")
+
+#@ def skipper_datasource_config():
+#@     return db_external_skipper()
+#@ end
+
+#@ def dataflow_datasource_config():
+#@     return db_external_dataflow()
+#@ end
+
+---
+#@ def db_overlay():
+#@ end

@@ -1,0 +1,7 @@
+#@ load("@ytt:data", "data")
+#@ load("@ytt:template", "template")
+#@ load("@ytt:overlay", "overlay")
+#@ load("@ytt:library", "library")
+#@ load("monitoring.star", "grafana_enabled")
+#@ load("monitoring.star", "prometheus_rsocket_proxy_enabled")
+

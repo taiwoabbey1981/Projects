@@ -1,0 +1,4 @@
+[[streams-monitoring]]
+= Stream Monitoring
+
+See the link:https://dataflow.spring.io/docs/feature-guides/streams/monitoring/[Stream Monitoring Guide] on the microsite for more about how to monitor the applications that were deployed as part of a Stream.

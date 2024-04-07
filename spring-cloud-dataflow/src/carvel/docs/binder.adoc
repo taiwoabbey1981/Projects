@@ -1,0 +1,44 @@
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+:scdf-deploy-binder-enabled: link:configuration-options.adoc#configuration-options-scdf.deploy.binder.enabled[scdf.deploy.binder.enabled]
+:scdf-binder-kafka-broker-host: link:configuration-options.adoc#configuration-options-scdf.binder.kafka.broker.host[scdf.binder.kafka.broker.host]
+:scdf-binder-kafka-broker-port: link:configuration-options.adoc#configuration-options-scdf.binder.kafka.broker.port[scdf.binder.kafka.broker.port]
+:scdf-binder-kafka-zk-host: link:configuration-options.adoc#configuration-options-scdf.binder.kafka.zk.host[scdf.binder.kafka.zk.host]
+:scdf-binder-kafka-zk-port: link:configuration-options.adoc#configuration-options-scdf.binder.kafka.zk.port[scdf.binder.kafka.zk.port]
+:scdf-binder-rabbit-host: link:configuration-options.adoc#configuration-options-scdf.binder.rabbit.host[scdf.binder.rabbit.host]
+:scdf-binder-rabbit-port: link:configuration-options.adoc#configuration-options-scdf.binder.rabbit.port[scdf.binder.rabbit.port]
+endif::[]
+ifndef::env-github[]
+:scdf-deploy-binder-enabled: <<configuration-options-scdf.deploy.binder.enabled>>
+:scdf-binder-kafka-broker-host: <<configuration-options-scdf.binder.kafka.broker.host>>
+:scdf-binder-kafka-broker-port: <<configuration-options-scdf.binder.kafka.broker.port>>
+:scdf-binder-kafka-zk-host: <<configuration-options-scdf.binder.kafka.zk.host>>
+:scdf-binder-kafka-zk-port: <<configuration-options-scdf.binder.kafka.zk.port>>
+:scdf-binder-rabbit-host: <<configuration-options-scdf.binder.rabbit.host>>
+:scdf-binder-rabbit-port: <<configuration-options-scdf.binder.rabbit.port>>
+endif::[]
+
+[[binder]]
+== Binder
+No default binder is deployed.
+
+For local demo use:
+[source,shell]
+....
+kubectl create --namespace <binder> -f src/kubernetes/<binder>/
+kubectl get --namespace <binder> services <binder> | grep -F <binder> | awk '{ print $3 }'
+....
+
+Supply the ip to the relevant host configuration option.
+
+=== Configure External Kafka Binder
+Define custom settings for binder under _scdf.binder_. You need to set all options {scdf-binder-kafka-broker-host},
+{scdf-binder-kafka-broker-port}, {scdf-binder-kafka-zk-host} and {scdf-binder-kafka-zk-port}.
+
+=== Configure External Rabbit Binder
+Define custom settings for binder under _scdf.binder_. You need to set all options {scdf-binder-rabbit-host}
+and {scdf-binder-rabbit-port}.

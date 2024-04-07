@@ -1,0 +1,73 @@
+= Spring Cloud Data Flow Reference Guide
+Sabby Anandan; Marius Bogoevici; Eric Bottard; Mark Fisher; Ilayaperumal Gopinathan; Gunnar Hillert; Mark Pollack; Patrick Peralta; Glenn Renfro; Thomas Risberg; Dave Syer; David Turanski; Janne Valkealahti; Oleg Zhurakousky; Jay Bryant; Vinicius Carvalho; Chris Schaefer; Damien Vitrac; Christian Tzolov; Claudia Bressi; Chris Bono; Corneil du Plesis
+:doctype: book
+:toc: left
+:toclevels: 4
+:numbered:
+:icons: font
+:hide-uri-scheme:
+:docinfo: shared
+
+:github-repo: spring-cloud/spring-cloud-dataflow
+:github-code: https://github.com/{github-repo}
+:microsite-version: master
+:spring-boot-version: 2.7.14
+:spring-cloud-task-version: 2.4.6
+:spring-batch-version: 4.3.8
+:spring-boot-docs: https://docs.spring.io/spring-boot/docs/{spring-boot-version}/reference/htmlsingle
+:scs-stream-apps-docs: https://docs.spring.io/stream-applications/docs/current/reference/html
+:dataflow-asciidoc-images: https://raw.githubusercontent.com/spring-cloud/spring-cloud-dataflow/main/spring-cloud-dataflow-docs/src/main/asciidoc/images
+
+:docker-http-source-rabbit-version: 3.2.1
+:docker-time-source-rabbit-version: 3.2.1
+:docker-log-sink-rabbit-version: 3.2.1
+:docker-log-sink-kafka-version: 3.2.1
+:docker-http-source-kafka-version: 3.2.1
+:docker-time-source-kafka-version: 3.2.1
+:docker-timestamp-task-version: 2.0.2
+
+ifdef::backend-html5[]
+
+Version {project-version}
+
+(C) 2012-2021 VMware, Inc. All rights reserved.
+
+_Copies of this document may be made for your own use and for distribution to others, provided that you do not charge any fee for such copies and further provided that each copy contains this Copyright Notice, whether distributed in print or electronically._
+
+endif::backend-html5[]
+
+// ======================================================================================
+
+include::preface.adoc[]
+
+include::overview.adoc[]
+
+include::getting-started.adoc[]
+
+include::applications.adoc[]
+
+include::architecture.adoc[]
+
+include::configuration.adoc[]
+
+include::shell.adoc[]
+
+include::streams.adoc[]
+
+include::streams-developer-guide.adoc[]
+
+include::streams-monitoring.adoc[]
+
+include::tasks.adoc[]
+
+include::task-developer-guide.adoc[]
+
+include::tasks-monitoring.adoc[]
+
+include::dashboard.adoc[]
+
+include::api-guide.adoc[]
+
+include::appendix.adoc[]
+
+// ======================================================================================

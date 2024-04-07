@@ -1,0 +1,17 @@
+spring:
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath*:/schemas/db2/V1-dataflow.sql
+        - classpath*:/schemas/db2/V1-skipper.sql
+        - classpath*:/schemas/db2/V2-dataflow.sql
+        - classpath*:/schemas/db2/V2-dataflow-after.sql
+        - classpath*:/schemas/db2/V3-dataflow.sql
+        - classpath*:/schemas/db2/V4-dataflow.sql
+        - classpath*:/schemas/db2/V5-dataflow.sql
+        - classpath*:/schemas/db2/V6-dataflow.sql
+        - classpath*:/schemas/db2/V7-dataflow.sql
+        - classpath*:/schemas/db2/V8-dataflow.sql

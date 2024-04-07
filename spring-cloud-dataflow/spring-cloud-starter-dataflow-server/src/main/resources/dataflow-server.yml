@@ -1,0 +1,20 @@
+server:
+  port: 9393
+info:
+  app:
+    name: "@project.artifactId@"
+    description: "@project.name@"
+    version: "@project.version@"
+
+spring:
+  application:
+    name: spring-cloud-dataflow-server
+  cloud:
+    config:
+      uri: http://localhost:8888
+
+  datasource:
+    url: jdbc:h2:tcp://localhost:19092/mem:dataflow
+    username: sa
+    password:
+    driverClassName: org.h2.Driver

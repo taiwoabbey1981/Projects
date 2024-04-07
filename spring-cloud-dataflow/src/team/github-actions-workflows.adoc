@@ -1,0 +1,52 @@
+# Workflows Documentation
+
+## Train Builds
+
+In dataflow related repos you may see workflows named as _worker_ and in `spring-cloud-dataflow`
+workflows named as _controller_. These are _train_ builds where workflow dispatch is handled
+via GitHub api's and this multi-repo _train_ build is orchestrated, you guessed it, within
+_controller_ workflows.
+
+Action code which handles this _train_ build is in https://github.com/jvalkeal/build-zoo-handler[build-zoo-handler]
+and you can find more docs about it there. In a nutshell when _controller_ workflow is fired,
+rules configuration in it makes a choice which remote repo workflow should be dispatched via
+_workflow dispatch_ api. When _worker_ workflows completes it calls `home` and then _controller_
+can make a choice what to do next. Within these ping-pong dispatches a `context` is kept alive and
+this `context` contains arbitry information what any _worker_ can contribute into it.
+
+Having this in-flight context is helpful when a _train_ release build is done as then _worker_
+workflow can tell what was its released version and related other workflows in any other repos
+can use this information to update project dependencies. Thus we're getting foundation
+to orchestrate various things without that much manual intervention.
+
+### Snapshot Train
+
+This is a simple all repo _train_ which can be fired from `spring-cloud-dataflow` with workflow
+`build-snapshot-controller`. It starts by instructing `spring-cloud-dataflow-build` to do its
+things and ends up last step where `spring-cloud-dataflow` is build.
+
+### Milestone Train
+
+This is an all repo _train_ which can be fired from `spring-cloud-dataflow` with workflow
+`milestone-controller`. As this _train_ will build and release a milestone, version postfix
+as `milestone_version=M1` needs to be given. Essentially `-SNAPSHOT` will be replaced by
+given milestone postfix.
+
+Milestone build is done against staging repo, release is promoted and finally GH
+release is created.
+
+### Release Train
+
+This is an all repo _train_ which can be fired from `spring-cloud-dataflow` with workflow
+`release-controller`. No parameters needs to be given as version is fixed to a ones current
+snapshots are using. Essentially same as versions without `-SNAPSHOT` postfix.
+
+Release build is done against staging repo, release is promoted, release is synched
+to maven central and finally GH release is created.
+
+### Next Dev Version Train
+
+This is an all repo _train_ which can be fired from `spring-cloud-dataflow` with workflow
+`next-dev-version-controller`. This should be used after a release where next dev version
+is needed. Simply goes through all repos and switched _patch_ version to next and
+commits changes back to repos.

@@ -1,0 +1,112 @@
+#@data/values-schema
+---
+#! all scdf options
+scdf:
+  registry:
+    secret:
+      #! if defined ref will be added as imagePullSecrets resources
+      ref: ""
+  server:
+    image:
+      #! dataflow server image repository id
+      repository: springcloud/spring-cloud-dataflow-server
+      #! dataflow server image tag (required)
+      tag: ""
+      digest: ""
+    service:
+      type: ClusterIP
+    resources:
+      limits:
+        cpu: ""
+        memory: ""
+      requests:
+        cpu: 500m
+        memory: 1024Mi
+    metrics:
+      dashboard:
+        url: ""
+    contextPath: ""
+    database:
+      url: ""
+      username: ""
+      password: ""
+      driverClassName: ""
+      testOnBorrow: true
+      validationQuery: ""
+      dialect: ""
+      secretName: ""
+      secretUsernameKey: ""
+      secretPasswordKey: ""
+    #! additional dataflow server configuration
+    #@schema/type any=True
+    config:
+    env:
+    - name: ""
+      value: ""
+  ctr:
+    image:
+      #! ctr image repository id
+      repository: springcloud/spring-cloud-dataflow-composed-task-runner
+      #! ctr image tag (required)
+      tag: ""
+      digest: ""
+  skipper:
+    image:
+      #! skipper server image repository id
+      repository: springcloud/spring-cloud-skipper-server
+      #! skipper server image tag (required)
+      tag: ""
+      digest: ""
+    service:
+      type: ClusterIP
+    resources:
+      limits:
+        cpu: ""
+        memory: ""
+      requests:
+        cpu: 500m
+        memory: 1024Mi
+    database:
+      url: ""
+      username: ""
+      password: ""
+      driverClassName: ""
+      testOnBorrow: true
+      validationQuery: ""
+      dialect: ""
+      secretName: ""
+      secretUsernameKey: ""
+      secretPasswordKey: ""
+    #! additional skipper server configuration
+    #@schema/type any=True
+    config:
+    env:
+    - name: ""
+      value: ""
+  #! external binder settings, will disable binder deployment
+  binder:
+    #! default is rabbit. Alternative is kafka
+    type: rabbit
+    kafka:
+      broker:
+        host: ""
+        port: 9092
+      zk:
+        host: ""
+        port: 9092
+    rabbit:
+      host: ""
+      port: 5672
+      username: ""
+      password: ""
+  #! optional feature
+  feature:
+    monitoring:
+      grafana:
+        enabled: false
+      prometheusRsocketProxy:
+        enabled: false
+        image:
+          repository: micrometermetrics/prometheus-rsocket-proxy
+          tag: 1.5.2
+          digest: ""

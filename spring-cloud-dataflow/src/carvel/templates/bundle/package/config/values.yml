@@ -1,0 +1,14 @@
+(@ load("@ytt:data", "data") @)#@data/values
+---
+scdf:
+  server:
+    image:
+      repository: (@= data.values.server.repository @)
+      tag: (@= data.values.server.version @)
+  ctr:
+    image:
+      tag: (@= data.values.ctr.version @)
+  skipper:
+    image:
+      repository: (@= data.values.skipper.repository @)
+      tag: (@= data.values.skipper.version @)

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.cloud</groupId>
+		<artifactId>spring-cloud-dataflow-parent</artifactId>
+		<version>2.11.2-SNAPSHOT</version>
+		<relativePath>../spring-cloud-dataflow-parent</relativePath>
+	</parent>
+	<artifactId>spring-cloud-dataflow-docs</artifactId>
+	<name>Spring Cloud Data Flow Docs</name>
+	<description>Spring Cloud Data Flow Docs</description>
+	<packaging>jar</packaging>
+	<properties>
+		<main.basedir>${basedir}/..</main.basedir>
+		<docs.resources.version>0.2.5</docs.resources.version>
+		<maven-javadoc-plugin.version>3.4.1</maven-javadoc-plugin.version>
+		<rootDir>${basedir}/..</rootDir>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-configuration-metadata</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-registry</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-rest-resource</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-server-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-server</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-rest-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-shell-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-dataflow-completion</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+	</dependencies>
+	<profiles>
+		<profile>
+			<id>full</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-jar-plugin</artifactId>
+						<version>3.3.0</version>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<version>${maven-javadoc-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+								<phase>prepare-package</phase>
+								<configuration>
+									<includeDependencySources>true</includeDependencySources>
+									<dependencySourceIncludes>
+										<dependencySourceInclude>${project.groupId}:*</dependencySourceInclude>
+									</dependencySourceIncludes>
+									<attach>false</attach>
+									<quiet>true</quiet>
+									<stylesheetfile>${basedir}/src/main/javadoc/spring-javadoc.css</stylesheetfile>
+									<links>
+										<link>
+											https://docs.spring.io/spring-framework/docs/${spring.version}/javadoc-api/
+										</link>
+										<link>https://docs.spring.io/spring-shell/docs/current/api/</link>
+									</links>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>${maven-resources-plugin.version}</version>
+						<executions>
+							<execution>
+								<id>copy-asciidoc-resources</id>
+								<phase>generate-resources</phase>
+								<goals>
+									<goal>copy-resources</goal>
+								</goals>
+								<configuration>
+									<outputDirectory>${project.build.directory}/refdocs/</outputDirectory>
+									<resources>
+										<resource>
+											<directory>src/main/asciidoc</directory>
+											<filtering>false</filtering>
+										</resource>
+									</resources>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.asciidoctor</groupId>
+						<artifactId>asciidoctor-maven-plugin</artifactId>
+						<version>2.2.4</version>
+						<dependencies>
+							<dependency>
+								<groupId>io.spring.asciidoctor.backends</groupId>
+								<artifactId>spring-asciidoctor-backends</artifactId>
+								<version>0.0.5</version>
+							</dependency>
+						</dependencies>
+						<configuration>
+							<sourceDirectory>${project.build.directory}/refdocs/</sourceDirectory>
+							<outputDirectory>${project.build.directory}/generated-docs</outputDirectory>
+							<sourceDocumentName>index.adoc</sourceDocumentName>
+							<imagesDir>.</imagesDir>
+							<doctype>book</doctype>
+							<attributes>
+								<icons>font</icons>
+								<allow-uri-read>true</allow-uri-read>
+								<attribute-missing>warn</attribute-missing>
+								<project-version>${project.version}</project-version>
+								<project-artifactId>${project.artifactId}</project-artifactId>
+								<version-type-lowercase>${version-type-lowercase}</version-type-lowercase>
+								<snippets>${basedir}/../spring-cloud-dataflow-classic-docs/target/generated-snippets</snippets>
+								<skipper-version>${spring-cloud-skipper.version}</skipper-version>
+								<skipper-version-type-lowercase>${skipper-version-type-lowercase}</skipper-version-type-lowercase>
+								<skipper-branch-or-tag>${skipper-branch-or-tag}</skipper-branch-or-tag>
+								<github-tag>${github-tag}</github-tag>
+								<local-server-image-tag>${local-server-image-tag}</local-server-image-tag>
+
+								<scdf-core-version>${org.springframework.cloud:spring-cloud-dataflow-core:jar.version}</scdf-core-version>
+								<cf-deployer-branch-or-tag>${cf-deployer-branch-or-tag}</cf-deployer-branch-or-tag>
+							</attributes>
+						</configuration>
+						<executions>
+							<execution>
+								<id>generate-html5</id>
+								<phase>prepare-package</phase>
+								<goals>
+									<goal>process-asciidoc</goal>
+								</goals>
+								<configuration>
+									<backend>spring-html</backend>
+									<sourceHighlighter>highlight.js</sourceHighlighter>
+									<doctype>book</doctype>
+									<attributes>
+										<!-- these attributes are required to use the doc resources-->
+										<docinfo>shared</docinfo>
+										<stylesdir>css/</stylesdir>
+										<stylesheet>spring.css</stylesheet>
+										<linkcss>true</linkcss>
+										<icons>font</icons>
+										<highlightjsdir>js/highlight</highlightjsdir>
+										<highlightjs-theme>github</highlightjs-theme>
+									</attributes>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.8</version>
+						<dependencies>
+							<dependency>
+								<groupId>ant-contrib</groupId>
+								<artifactId>ant-contrib</artifactId>
+								<version>1.0b3</version>
+								<exclusions>
+									<exclusion>
+										<groupId>ant</groupId>
+										<artifactId>ant</artifactId>
+									</exclusion>
+								</exclusions>
+							</dependency>
+							<dependency>
+								<groupId>org.apache.ant</groupId>
+								<artifactId>ant-nodeps</artifactId>
+								<version>1.8.1</version>
+							</dependency>
+							<dependency>
+								<groupId>org.tigris.antelope</groupId>
+								<artifactId>antelopetasks</artifactId>
+								<version>3.2.10</version>
+							</dependency>
+						</dependencies>
+						<executions>
+							<execution>
+								<id>package-and-attach-docs-zip</id>
+								<phase>package</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<target>
+										<zip destfile="${project.build.directory}/${project.artifactId}-${project.version}.zip">
+											<zipfileset src="${project.build.directory}/${project.artifactId}-${project.version}-javadoc.jar" prefix="api" />
+											<zipfileset dir="${project.build.directory}/generated-docs" prefix="reference/htmlsingle">
+												<include name="index.html" />
+												<include name="images/**" />
+												<include name="css/**" />
+												<include name="js/**" />
+											</zipfileset>
+											<zipfileset dir="${project.build.directory}/generated-docs" prefix="reference/pdf">
+												<include name="index.pdf" />
+											</zipfileset>
+										</zip>
+									</target>
+								</configuration>
+							</execution>
+							<execution>
+								<id>setup-maven-properties</id>
+								<phase>validate</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<exportAntProperties>true</exportAntProperties>
+									<target>
+										<taskdef resource="net/sf/antcontrib/antcontrib.properties" />
+										<taskdef name="stringutil" classname="ise.antelope.tasks.StringUtilTask" />
+
+										<var name="version-type" value="${project.version}" />
+										<propertyregex property="version-type" override="true" input="${version-type}" regexp=".*\.(.*)" replace="\1" />
+										<propertyregex property="version-type" override="true" input="${version-type}" regexp="(M)\d+" replace="MILESTONE" />
+										<propertyregex property="version-type" override="true" input="${version-type}" regexp="(RC)\d+" replace="MILESTONE" />
+										<propertyregex property="version-type" override="true" input="${version-type}" regexp="BUILD-(.*)" replace="SNAPSHOT" />
+										<stringutil string="${version-type}" property="version-type-lowercase">
+											<lowercase />
+										</stringutil>
+
+										<var name="skipper-version-type" value="${spring-cloud-skipper.version}" />
+										<propertyregex property="skipper-version-type" override="true" input="${skipper-version-type}" regexp=".*\.(.*)" replace="\1" />
+										<propertyregex property="skipper-version-type" override="true" input="${skipper-version-type}" regexp="(M)\d+" replace="MILESTONE" />
+										<propertyregex property="skipper-version-type" override="true" input="${skipper-version-type}" regexp="(RC)\d+" replace="MILESTONE" />
+										<propertyregex property="skipper-version-type" override="true" input="${skipper-version-type}" regexp="BUILD-(.*)" replace="SNAPSHOT" />
+										<stringutil string="${skipper-version-type}" property="skipper-version-type-lowercase">
+											<lowercase />
+										</stringutil>
+
+										<var name="github-tag" value="v${project.version}" />
+										<propertyregex property="github-tag" override="true" input="${github-tag}" regexp=".*SNAPSHOT" replace="master" />
+
+										<var name="local-server-image-tag" value="${project.version}" />
+										<propertyregex property="local-server-image-tag" override="true" input="${local-server-image-tag}" regexp=".*SNAPSHOT" replace="latest" />
+
+										<propertyregex property="cf-deployer-branch-or-tag" override="true" input="${spring-cloud-deployer-cloudfoundry.version}" regexp=".*\.(?:M\d+|RC\d+|RELEASE)" select="v\0" defaultValue="master" />
+									</target>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>build-helper-maven-plugin</artifactId>
+						<version>1.9.1</version>
+						<executions>
+							<execution>
+								<id>attach-zip</id>
+								<goals>
+									<goal>attach-artifact</goal>
+								</goals>
+								<configuration>
+									<artifacts>
+										<artifact>
+											<file>
+												${project.build.directory}/${project.artifactId}-${project.version}.zip
+											</file>
+											<type>zip;zip.type=docs;zip.deployed=false</type>
+										</artifact>
+									</artifacts>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>

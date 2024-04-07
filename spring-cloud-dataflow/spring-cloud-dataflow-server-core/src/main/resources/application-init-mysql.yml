@@ -1,0 +1,20 @@
+spring:
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
+      schema-locations: 
+        - classpath*:/schemas/mysql/V1-dataflow.sql
+        - classpath*:/schemas/mysql/V1-skipper.sql
+        - classpath*:/schemas/mysql/V2-dataflow.sql
+        - classpath*:/schemas/mysql/V2-dataflow-after.sql
+        - classpath*:/schemas/mysql/V3-dataflow.sql
+        - classpath*:/schemas/mysql/V4-dataflow.sql
+        - classpath*:/schemas/mysql/V5-dataflow.sql
+        - classpath*:/schemas/mysql/V6-dataflow.sql
+        - classpath*:/schemas/mysql/V7-dataflow.sql
+        - classpath*:/schemas/mysql/V9-dataflow.sql
+        - classpath*:/schemas/mysql/V8-dataflow.sql
+        - classpath*:/schemas/mysql/V9-dataflow.sql
+        - classpath*:/schemas/mysql/V10-dataflow.sql

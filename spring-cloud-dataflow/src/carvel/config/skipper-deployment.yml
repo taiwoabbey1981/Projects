@@ -1,0 +1,96 @@
+#@ load("@ytt:data", "data")
+#@ load("skipper.star", "skipper_image")
+#@ load("skipper.star", "skipper_container_env")
+#@ load("skipper.star", "has_image_pull_secrets")
+#@ load("skipper.star", "image_pull_secrets")
+#@ load("skipper.star", "skipper_has_password")
+#@ load("common/common.star", "non_empty_string")
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skipper
+  annotations:
+    kapp.k14s.io/change-group: "scdf.tanzu.vmware.com/skipper"
+    kapp.k14s.io/change-rule: "upsert after upserting scdf.tanzu.vmware.com/db"
+  labels:
+    app: skipper
+spec:
+  selector:
+    matchLabels:
+      app: skipper
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: skipper
+    spec:
+      containers:
+      - name: skipper
+        image: #@ skipper_image()
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: config
+          mountPath: /workspace/config
+          readOnly: true
+        #@ if skipper_has_password():
+        - name: database
+          mountPath: /workspace/runtime/secrets/database
+          readOnly: true
+        #@ end
+        ports:
+        - containerPort: 7577
+        startupProbe:
+          httpGet:
+            port: 7577
+            path: /actuator
+          failureThreshold: 4
+          initialDelaySeconds: 10
+          timeoutSeconds: 3
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 7577
+          failureThreshold: 4
+          initialDelaySeconds: 1
+          timeoutSeconds: 3
+          periodSeconds: 15
+        readinessProbe:
+          httpGet:
+            path: /actuator/info
+            port: 7577
+          failureThreshold: 3
+          initialDelaySeconds: 5
+          timeoutSeconds: 3
+          periodSeconds: 15
+        resources:
+          limits:
+            #@ if non_empty_string(data.values.scdf.skipper.resources.limits.cpu):
+            cpu: #@ data.values.scdf.skipper.resources.limits.cpu
+            #@ end
+            #@ if non_empty_string(data.values.scdf.skipper.resources.limits.memory):
+            memory: #@ data.values.scdf.skipper.resources.limits.memory
+            #@ end
+          requests:
+            cpu: #@ data.values.scdf.skipper.resources.requests.cpu
+            memory: #@ data.values.scdf.skipper.resources.requests.memory
+        env: #@ skipper_container_env()
+      serviceAccountName: scdf-sa
+      #@ if has_image_pull_secrets():
+      imagePullSecrets: #@ image_pull_secrets()
+      #@ else:
+      imagePullSecrets: [{name: reg-creds}]
+      #@ end
+      volumes:
+      - name: config
+        configMap:
+          name: skipper
+          items:
+          - key: application.yaml
+            path: application.yaml
+      #@ if skipper_has_password():
+      - name: database
+        secret:
+          secretName: db-skipper
+      #@ end

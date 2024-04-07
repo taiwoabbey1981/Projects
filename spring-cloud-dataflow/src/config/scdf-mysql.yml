@@ -1,0 +1,11 @@
+# $ docker run --name test-mariadb -d -p 3306:3306 -e MARIADB_ROOT_PASSWORD=spring -e MARIADB_USER=spring -e MARIADB_PASSWORD=spring -e MARIADB_DATABASE=dataflow mariadb:10.4.22
+# $ docker run --name test-mariadb -d -p 3306:3306 -e MARIADB_ROOT_PASSWORD=spring -e MARIADB_USER=spring -e MARIADB_PASSWORD=spring -e MARIADB_DATABASE=dataflow mariadb:10.4.22
+# $ docker stop test-mariadb
+# $ docker rm test-mariadb
+# $ docker exec -it test-mariadb mariadb -h127.0.0.1 -P3306 -uspring -pspring dataflow
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/dataflow
+    username: spring
+    password: spring
+    driverClassName: org.mariadb.jdbc.Driver

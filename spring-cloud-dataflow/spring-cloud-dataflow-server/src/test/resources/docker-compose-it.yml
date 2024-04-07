@@ -1,0 +1,11 @@
+version: '3'
+
+# Used by the CI runs to ensures that that DooD containers use the parent docker configuration and therefore
+# reusing the parent DockerHub credentials.
+services:
+  dataflow-server:
+    volumes:
+      - ${SCDF_DOCKER_CONFIG:-~/.docker}:/root/.docker
+  skipper-server:
+    volumes:
+      - ${SCDF_DOCKER_CONFIG:-~/.docker}:/root/.docker

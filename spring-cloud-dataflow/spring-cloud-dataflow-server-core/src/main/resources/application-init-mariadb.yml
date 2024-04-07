@@ -1,0 +1,18 @@
+spring:
+  flyway:
+    enabled: false
+  sql:
+    init:
+      mode: always
+      schema-locations:
+        - classpath*:/schemas/mariadb/V1-dataflow.sql
+        - classpath*:/schemas/mariadb/V1-skipper.sql
+        - classpath*:/schemas/mariadb/V2-dataflow.sql
+        - classpath*:/schemas/mariadb/V2-dataflow-after.sql
+        - classpath*:/schemas/mariadb/V3-dataflow.sql
+        - classpath*:/schemas/mariadb/V4-dataflow.sql
+        - classpath*:/schemas/mariadb/V5-dataflow.sql
+        - classpath*:/schemas/mariadb/V6-dataflow.sql
+        - classpath*:/schemas/mariadb/V7-dataflow.sql
+        - classpath*:/schemas/mariadb/V9-dataflow.sql
+        - classpath*:/schemas/mariadb/V8-dataflow.sql
